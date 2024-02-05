@@ -1,33 +1,41 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Project.Api.Filters;
+using Project.Api.Queries;
+using System.Diagnostics;
 
 namespace Project.Api.Controllers
 {
+     [Route("api/[controller]")]
      [ApiController]
-     [Route("[controller]")]
      public class WeatherForecastController : ControllerBase
      {
-          private static readonly string[] Summaries = new[]
+          private readonly IMediator _mediator;
+          public WeatherForecastController(IMediator mediator)
           {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
-          private readonly ILogger<WeatherForecastController> _logger;
-
-          public WeatherForecastController(ILogger<WeatherForecastController> logger)
-          {
-               _logger = logger;
+               _mediator = mediator;
           }
 
-          [HttpGet(Name = "GetWeatherForecast")]
-          public IEnumerable<WeatherForecast> Get()
+          [HttpGet]
+          [AdminFilter]
+          public async Task<ActionResult> GetWeatherForecast(int id)
           {
-               return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+               var query = new GetWeatherForecastQuery(id);
+               var result = await _mediator.Send(query);
+               if (result == null)
                {
-                    Date = DateTime.Now.AddDays(index),
-                    TemperatureC = Random.Shared.Next(-20, 55),
-                    Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-               })
-               .ToArray();
+                    return NotFound();
+               }
+               return Ok(result);
           }
+
+          [HttpGet("extract")]
+          public async Task<ActionResult> Extract()
+          {
+               var cookie = HttpContext.Request.Cookies["X-Key"];
+               Debug.WriteLine("Cookie found : " + cookie);
+               return Ok();
+          }
+
      }
 }

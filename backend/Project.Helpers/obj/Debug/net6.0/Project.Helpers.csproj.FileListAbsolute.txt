@@ -1,0 +1,11 @@
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Helpers\bin\Debug\net6.0\Project.Helpers.deps.json
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Helpers\bin\Debug\net6.0\Project.Helpers.dll
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Helpers\bin\Debug\net6.0\Project.Helpers.pdb
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Helpers\obj\Debug\net6.0\Project.Helpers.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Helpers\obj\Debug\net6.0\Project.Helpers.AssemblyInfoInputs.cache
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Helpers\obj\Debug\net6.0\Project.Helpers.AssemblyInfo.cs
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Helpers\obj\Debug\net6.0\Project.Helpers.csproj.CoreCompileInputs.cache
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Helpers\obj\Debug\net6.0\Project.Helpers.dll
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Helpers\obj\Debug\net6.0\refint\Project.Helpers.dll
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Helpers\obj\Debug\net6.0\Project.Helpers.pdb
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Helpers\obj\Debug\net6.0\ref\Project.Helpers.dll

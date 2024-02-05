@@ -1,0 +1,15 @@
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Domain\bin\Debug\net6.0\Project.Domain.deps.json
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Domain\bin\Debug\net6.0\Project.Domain.dll
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Domain\bin\Debug\net6.0\Project.Domain.pdb
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Domain\bin\Debug\net6.0\Project.Helpers.dll
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Domain\bin\Debug\net6.0\Project.Helpers.pdb
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Domain\obj\Debug\net6.0\Project.Domain.csproj.AssemblyReference.cache
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Domain\obj\Debug\net6.0\Project.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Domain\obj\Debug\net6.0\Project.Domain.AssemblyInfoInputs.cache
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Domain\obj\Debug\net6.0\Project.Domain.AssemblyInfo.cs
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Domain\obj\Debug\net6.0\Project.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Domain\obj\Debug\net6.0\Project.Domain.csproj.CopyComplete
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Domain\obj\Debug\net6.0\Project.Domain.dll
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Domain\obj\Debug\net6.0\refint\Project.Domain.dll
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Domain\obj\Debug\net6.0\Project.Domain.pdb
+C:\Users\Mr_Restmah\OneDrive - Technical University of Moldova\Documents\GitHub\ASP.NET-with-React\backend\Project.Domain\obj\Debug\net6.0\ref\Project.Domain.dll
