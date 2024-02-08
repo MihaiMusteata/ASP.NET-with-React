@@ -13,7 +13,6 @@ namespace Project.Domain.Entities.Session
           [Key]
           [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
           public int Id { get; set; }
-
           public string Cookie { get; set; }
           public int UserId { get; set; }
           public DateTime ExpirationDate { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project.Domain.Entities.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,10 @@ namespace Project.Domain.Entities.User
           public string Password { get; set; }
           public string ConfirmPassword { get; set; }
           public string Gender { get; set; }
+          public string Distrcit { get; set; }
+          public string Region { get; set; }
           public string LoginIp { get; set; }
           public DateTime LoginDateTime { get; set; }
+          public URole Level { get; set; }   
      }
 }

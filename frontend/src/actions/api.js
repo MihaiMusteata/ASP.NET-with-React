@@ -5,6 +5,7 @@ const API_ENDPOINTS = {
     'SIGNUP': `${API_URL}/api/Auth/signup`,
     'LOGOUT': `${API_URL}/api/Auth/logout`,
     'PROFILE': `${API_URL}/api/Auth/profile`,
+    'USERS': `${API_URL}/api/Dashboard/users`,
 };
 
 export const ApiPostRequest = async (endpoint, data, headers) => {

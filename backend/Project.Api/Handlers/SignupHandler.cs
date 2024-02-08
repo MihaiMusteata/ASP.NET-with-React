@@ -23,8 +23,11 @@ namespace Project.Api.Handlers
                     Password = model.Password,
                     ConfirmPassword = model.ConfirmPassword,
                     Gender = model.Gender,
+                    Distrcit = model.District,
+                    Region = model.Region,
                     LoginIp = httpContext.Connection.RemoteIpAddress.ToString(),
-                    LoginDateTime = model.LoginDateTime
+                    LoginDateTime = model.LoginDateTime,
+                    Level = model.Level
 
                };
                var userSignup = _session.UserSignup(data);

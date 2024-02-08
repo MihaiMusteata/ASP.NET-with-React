@@ -8,6 +8,7 @@ namespace Project.Domain.Entities.Enums
 {
      public enum URole
      {
+          NonSeted,
           Admin,
           Operator,
           OperatorRaion

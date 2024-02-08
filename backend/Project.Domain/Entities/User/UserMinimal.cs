@@ -12,6 +12,9 @@ namespace Project.Domain.Entities.User
           public int Id { get; set; }
           public string Username { get; set; }
           public string Email { get; set; }
+          public string Gender { get; set; }
+          public string District { get; set; }
+          public string Region { get; set; }
           public URole Level { get; set; }
      }
 }

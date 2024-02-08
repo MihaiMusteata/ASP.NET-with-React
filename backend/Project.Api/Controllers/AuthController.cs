@@ -18,15 +18,11 @@ namespace Project.Api.Controllers
      [ApiController]
      public class AuthController : ControllerBase
      {
-          private readonly BusinessLogic.Interfaces.ISession _session;
-          public static User user = new User();
           public readonly IConfiguration _configuration;
           private readonly IMediator _mediator;
 
           public AuthController(IConfiguration configuration, IMediator mediator)
           {
-               var bl = new BusinessLogic.BusinessLogic();
-               _session = bl.GetSessionBL();
                _configuration = configuration;
                _mediator = mediator;
           }

@@ -35,6 +35,14 @@ namespace Project.Domain.Entities.User
           [Display(Name = "Gender")]
           public string Gender { get; set; }
 
+          [Required]
+          [Display(Name = "District")]
+          public string District { get; set; }
+
+          [Required]
+          [Display(Name = "Region")]
+          public string Region { get; set; }
+
           [DataType(DataType.Date)]
           public DateTime LastLogin { get; set; }
 

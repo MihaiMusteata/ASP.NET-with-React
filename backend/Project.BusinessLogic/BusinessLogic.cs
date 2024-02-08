@@ -13,5 +13,13 @@ namespace Project.BusinessLogic
           {
                return new SessionBL();
           }
+          public IUsersManager GetUsersManagerBL()
+          {
+               return new UsersManagerBL();
+          }
+          public ILocationManager GetLocationManagerBL()
+          {
+               return new LocationManagerBL();
+          }
      }
 }

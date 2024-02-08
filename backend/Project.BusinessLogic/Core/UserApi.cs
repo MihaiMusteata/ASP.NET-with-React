@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using Project.Domain.Entities.Session;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+using Project.Domain.Entities.Location;
 
 namespace Project.BusinessLogic.Core
 {
@@ -67,9 +67,11 @@ namespace Project.BusinessLogic.Core
                          Email = data.Email,
                          Password = hash_password,
                          Gender = data.Gender,
+                         District = data.Distrcit,
+                         Region = data.Region,
                          LastIp = data.LoginIp,
                          LastLogin = data.LoginDateTime,
-                         Level = 0
+                         Level = data.Level
                     };
                     using (var db = new MinisterulFinantelorContext())
                     {
@@ -189,5 +191,45 @@ namespace Project.BusinessLogic.Core
                };
           }
 
+          internal List<DistrictData> GetDistrictsList()
+          {
+               List<DistrictData> result = new List<DistrictData>();
+               using (var db = new MinisterulFinantelorContext())
+               {
+                    var districts = db.Districts.ToList();
+
+                    foreach (var item in districts)
+                    {
+                         result.Add(new DistrictData
+                         {
+                              Id = item.Id,
+                              Name = item.Name
+                         });
+                    }
+               }
+               return result;
+          }
+
+          internal List<RegionData> GetRegionsList()
+          {
+               List<RegionData> result = new List<RegionData>();
+               using (var db = new MinisterulFinantelorContext())
+               {
+                    var regions = db.Regions.ToList();
+
+                    foreach (var item in regions)
+                    {
+                         result.Add(new RegionData
+                         {
+                              Id = item.Id,
+                              Name = item.Name,
+                              DistrictId = item.DistrictId
+                         });
+                    }
+               }
+               return result;
+          }
+
      }
+
 }

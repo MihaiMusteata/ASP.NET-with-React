@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Project.Domain.Entities.Location;
 using Project.Domain.Entities.Session;
 using Project.Domain.Entities.User;
 
@@ -19,6 +20,8 @@ public partial class MinisterulFinantelorContext : DbContext
 
      public virtual DbSet<UDbTable> Users { get; set; }
      public virtual DbSet<SessionsDbTable> Sessions { get; set; }
+     public virtual DbSet<DistrictsDbTable> Districts { get; set; }
+     public virtual DbSet<RegionsDbTable> Regions { get; set; }
 
 
      protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

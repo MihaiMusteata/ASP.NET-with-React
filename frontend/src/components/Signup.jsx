@@ -10,30 +10,68 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { useState, useEffect } from 'react';
 
 import { ApiPostRequest } from '../actions/api';
 
 export default function Signup() {
-  const [gender, setGender] = React.useState('');
 
-  const handleChange = (event) => {
-    setGender(event.target.value);
+  const [districts, setDistricts] = useState([]);
+  const [regions, setRegions] = useState([]);
+  const [gender, setGender] = React.useState('');
+  const [district, setDistrict] = React.useState('');
+  const [region, setRegion] = React.useState('');
+
+  const handleChange = (event, setter) => {
+    setter(event.target.value);
+    console.log(event.target);
   };
+
+
+  useEffect(() => {
+    const fetchDistricts = async () => {
+      try {
+        const response = await fetch('https://localhost:7273/api/Location/districts');
+        const data = await response.json();
+        setDistricts(data);
+      } catch (error) {
+        console.error('Error fetching districts:', error);
+      }
+    };
+    fetchDistricts();
+    const fetchRegions = async () => {
+      try {
+        const response = await fetch('https://localhost:7273/api/Location/regions');
+        const data = await response.json();
+        setRegions(data);
+      } catch (error) {
+        console.error('Error fetching regions:', error);
+      }
+    };
+    fetchRegions();
+  }, []);
+
+  console.log('Districts:', districts);
+  console.log('Regions:', regions);
+
   const handleSignup = async () => {
     var email = document.getElementById('email').value;
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
     var confirmPassword = document.getElementById('confirm-password').value;
-
+    
     var data = {
       email: email,
       username: username,
       password: password,
       confirmPassword: confirmPassword,
       gender: gender,
-      loginIp: 'a',
+      district: districts[district - 1].name,
+      region: regions[region - 1].name,
+      loginIp: '',
       loginDateTime: '2021-10-10T10:10:10'
     };
+    alert(JSON.stringify(data));
     await ApiPostRequest('SIGNUP', data, { 'Content-Type': 'application/json' });
     window.location.href = '/login';
   }
@@ -108,13 +146,46 @@ export default function Signup() {
                   id="gender"
                   label="Gender"
                   value={gender}
-                  onChange={handleChange}
+                  onChange={(event) => handleChange(event, setGender)}
                 >
                   <MenuItem value="male">Male</MenuItem>
                   <MenuItem value="female">Female</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth>
+                <InputLabel id="district-label">District</InputLabel>
+                <Select
+                  labelId="district-label"
+                  id="district"
+                  label="District"
+                  value={district}
+                  onChange={(event) => handleChange(event, setDistrict)}
+                >
+                  {districts.map((district) => (
+                    <MenuItem key={district.id} value={district.id}>{district.name}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth>
+                <InputLabel id="region-label">Region</InputLabel>
+                <Select
+                  labelId="region-label"
+                  id="region"
+                  label="Region"
+                  value={region}
+                  onChange={(event) => handleChange(event, setRegion)}
+                >
+                  {regions.filter((region) => region.districtId === district).map((region) => (
+                    <MenuItem key={region.id} value={region.id}>{region.name}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+
           </Grid>
           <Button
             type="submit"
