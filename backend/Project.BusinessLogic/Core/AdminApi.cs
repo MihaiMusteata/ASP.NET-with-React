@@ -26,13 +26,15 @@ namespace Project.BusinessLogic.Core
                               Username = u.Username,
                               Email = u.Email,
                               Gender = u.Gender,
+                              District = u.District,
+                              Region = u.Region,
                               Level = u.Level
                          });
                     }
                }
                return users;
           }
-          public PostResponse DeleteUser(int id)
+          public PostResponse DeleteUserAction(int id)
           {
                using (var db = new MinisterulFinantelorContext())
                {

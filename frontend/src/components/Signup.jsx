@@ -12,7 +12,6 @@ import Container from '@mui/material/Container';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { useState, useEffect } from 'react';
 
-import { ApiPostRequest } from '../actions/api';
 
 export default function Signup() {
 
@@ -55,25 +54,30 @@ export default function Signup() {
   console.log('Regions:', regions);
 
   const handleSignup = async () => {
-    var email = document.getElementById('email').value;
-    var username = document.getElementById('username').value;
-    var password = document.getElementById('password').value;
-    var confirmPassword = document.getElementById('confirm-password').value;
-    
     var data = {
-      email: email,
-      username: username,
-      password: password,
-      confirmPassword: confirmPassword,
+      email: document.getElementById('email').value,
+      username: document.getElementById('username').value,
+      password: document.getElementById('password').value,
+      confirmPassword: document.getElementById('confirm-password').value,
       gender: gender,
       district: districts[district - 1].name,
       region: regions[region - 1].name,
-      loginIp: '',
-      loginDateTime: '2021-10-10T10:10:10'
+      level:0
     };
-    alert(JSON.stringify(data));
-    await ApiPostRequest('SIGNUP', data, { 'Content-Type': 'application/json' });
-    window.location.href = '/login';
+    console.log("Abricoasa :", JSON.stringify(data));
+    // https://localhost:7273/api/Auth/signup
+    const response = await fetch('https://localhost:7273/api/Auth/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(data),
+    });
+
+    console.log(response);
+
+    // window.location.href = '/login';
   }
 
   return (
@@ -93,7 +97,7 @@ export default function Signup() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSignup} sx={{ mt: 3 }}>
+        <Box component="form" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -188,9 +192,9 @@ export default function Signup() {
 
           </Grid>
           <Button
-            type="submit"
             fullWidth
             variant="contained"
+            onClick={handleSignup}
             sx={{ mt: 3, mb: 2 }}
           >
             Sign Up

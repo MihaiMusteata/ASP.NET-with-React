@@ -11,8 +11,6 @@ namespace Project.Api.Models
           public string Gender { get; set; }
           public string District { get; set; }
           public string Region { get; set; }
-          public string LoginIp { get; set; }
-          public DateTime LoginDateTime { get; set; }
           public URole Level { get; set; }
 
      }

@@ -15,5 +15,9 @@ namespace Project.BusinessLogic
           {
                return GetUsersList();
           }
+          public PostResponse DeleteUser(int id)
+          {
+               return DeleteUserAction(id);
+          }
      }
 }

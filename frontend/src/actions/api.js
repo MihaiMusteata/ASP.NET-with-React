@@ -1,6 +1,5 @@
 const API_URL = 'https://localhost:7273';
 const API_ENDPOINTS = {
-    'WEATHERSFORECAST': `${API_URL}/api/WeatherForecast`,
     'LOGIN': `${API_URL}/api/Auth/login`,
     'SIGNUP': `${API_URL}/api/Auth/signup`,
     'LOGOUT': `${API_URL}/api/Auth/logout`,

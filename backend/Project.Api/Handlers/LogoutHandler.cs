@@ -15,8 +15,8 @@ namespace Project.Api.Handlers
           {
                int userId = request.userId;
                // TODO - Fix logic to delete the cookie
-               //HttpContext httpContext = request.httpContext;
-               //httpContext.Response.Cookies.Delete("X-Key");
+               HttpContext httpContext = request.httpContext;
+               httpContext.Response.Cookies.Delete("X-Key");
                _session.UserLogout(userId);
                return Unit.Value;
           }

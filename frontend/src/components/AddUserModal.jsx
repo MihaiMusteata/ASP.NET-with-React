@@ -2,21 +2,66 @@ import React, { useState } from 'react';
 import { Modal, TextField, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import Button from 'react-bootstrap/Button';
 import Grid from '@mui/material/Grid';
+import { useEffect } from 'react';
 const AddUserModal = ({ open, handleClose }) => {
-    const [userData, setUserData] = useState({
-        username: '',
-        email: '',
-        password: '',
-        gender: '',
-        role: ''
-    });
+    const [districts, setDistricts] = useState([]);
+    const [regions, setRegions] = useState([]);
+    const [gender, setGender] = React.useState('');
+    const [role, setRole] = React.useState('');
+    const [district, setDistrict] = React.useState('');
+    const [region, setRegion] = React.useState('');
 
-    const handleChange = (e) => {
-        setUserData({ ...userData, [e.target.name]: e.target.value });
+    useEffect(() => {
+        const fetchDistricts = async () => {
+            try {
+                const response = await fetch('https://localhost:7273/api/Location/districts');
+                const data = await response.json();
+                setDistricts(data);
+            } catch (error) {
+                console.error('Error fetching districts:', error);
+            }
+        };
+        fetchDistricts();
+        const fetchRegions = async () => {
+            try {
+                const response = await fetch('https://localhost:7273/api/Location/regions');
+                const data = await response.json();
+                setRegions(data);
+            } catch (error) {
+                console.error('Error fetching regions:', error);
+            }
+        };
+        fetchRegions();
+    }, []);
+
+    const handleChange = (event, setter) => {
+        setter(event.target.value);
+        console.log(event.target);
     };
 
-    const handleSubmit = () => {
-        console.log(userData);
+    const handleSubmit = async () =>  {
+        var data = {
+            username: document.getElementById('username').value,
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value,
+            confirmPassword: document.getElementById('password').value,
+            gender: gender,
+            district: districts[district - 1].name,
+            region: regions[region - 1].name,
+            level: role,
+        };
+        
+        const response = await fetch('https://localhost:7273/api/Auth/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+            body: JSON.stringify(data),
+        });
+
+        console.log(response);
+        // TODO: fix update table data after adding new user
         handleClose();
     };
 
@@ -58,31 +103,50 @@ const AddUserModal = ({ open, handleClose }) => {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField
-                            required
-                            fullWidth
-                            name="confirm-password"
-                            label="Confirm Password"
-                            type="password"
-                            id="confirm-password"
-                            autoComplete="new-password"
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
                         <FormControl fullWidth>
                             <InputLabel id="gender-label">Gender</InputLabel>
                             <Select
                                 labelId="gender-label"
                                 id="gender"
                                 label="Gender"
-                                onChange={handleChange}
+                                onChange={(event) => handleChange(event, setGender)}
                             >
                                 <MenuItem value="male">Male</MenuItem>
                                 <MenuItem value="female">Female</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
-                    {/* role */}
+                    <Grid item xs={12}>
+                        <FormControl fullWidth>
+                            <InputLabel id="district-label">District</InputLabel>
+                            <Select
+                                labelId="district-label"
+                                id="district"
+                                label="District"
+                                onChange={(event) => handleChange(event, setDistrict)}
+                            >
+                                {districts.map((district) => (
+                                    <MenuItem key={district.id} value={district.id}>{district.name}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <FormControl fullWidth>
+                            <InputLabel id="region-label">Region</InputLabel>
+                            <Select
+                                labelId="region-label"
+                                id="region"
+                                label="Region"
+                                onChange={(event) => handleChange(event, setRegion)}
+                            >
+                                {regions.filter(region => region.districtId === district).map((region) => (
+                                    <MenuItem key={region.id} value={region.id}>{region.name}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </Grid>
+
                     <Grid item xs={12}>
                         <FormControl fullWidth>
                             <InputLabel id="role-label">Role</InputLabel>
@@ -90,10 +154,10 @@ const AddUserModal = ({ open, handleClose }) => {
                                 labelId="role-label"
                                 id="role"
                                 label="Role"
-                                onChange={handleChange}
+                                onChange={(event) => handleChange(event, setRole)}
                             >
-                                <MenuItem value="1">Operator</MenuItem>
-                                <MenuItem value="2">Operator Raion</MenuItem>
+                                <MenuItem value={2}>Operator</MenuItem>
+                                <MenuItem value={3}>Operator Raion</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
@@ -102,7 +166,7 @@ const AddUserModal = ({ open, handleClose }) => {
                     <Button variant="success" onClick={handleSubmit}>Add User</Button>
                 </div>
             </div>
-        </Modal>
+        </Modal >
     );
 };
 

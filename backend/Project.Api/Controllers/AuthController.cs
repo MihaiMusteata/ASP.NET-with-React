@@ -30,9 +30,10 @@ namespace Project.Api.Controllers
           [HttpPost("signup")]
           public async Task<ActionResult> Signup(UserSignup model)
           {
+               Debug.WriteLine("Signup httpost");
                var query = new SignupQuery(model, HttpContext);
                var result = await _mediator.Send(query);
-
+               Debug.WriteLine("Signup result : " + result.StatusMsg);
                if (result.Status)
                {
                     return Ok(result);
@@ -63,16 +64,6 @@ namespace Project.Api.Controllers
           [HttpPost("logout")]
           public async Task<ActionResult> Logout(int userId)
           {
-               string cookieName = "X-Key";
-
-               // Creează o instanță a opțiunilor cookie-ului, fără a seta nicio proprietate
-               var cookieOptions = new CookieOptions();
-
-               // Setează data de expirare a cookie-ului în trecut pentru a-l invalida
-               cookieOptions.Expires = DateTime.Now.AddDays(-1);
-
-               // Șterge cookie-ul
-               Response.Cookies.Append(cookieName, "", cookieOptions);
                var query = new LogoutQuery(HttpContext, userId);
                try
                {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
@@ -9,7 +9,6 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -19,8 +18,9 @@ import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import { Link } from 'react-router-dom';  
-import Orders from './Users';
+import Users from './Users';
 import Cookies from 'js-cookie';
+import { uRole } from '../actions/uRole';
 import { useEffect, useState } from 'react';
 
 
@@ -199,11 +199,10 @@ export default function Dashboard({ user, setUser }) {
         <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
           <Grid container spacing={3}>
-
-            {/* Recent Orders */}
             <Grid item xs={12}>
               <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <Orders />
+              {user && uRole[user.level] == 'Admin' && <Users />}
+              {/* if uRole[user.level] == 'Operator'  show Orders*/}
               </Paper>
             </Grid>
           </Grid>

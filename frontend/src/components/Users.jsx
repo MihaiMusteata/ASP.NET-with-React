@@ -13,13 +13,12 @@ import AddUserModal from './AddUserModal';
 import { useState, useEffect } from 'react';
 import { ApiGetRequest } from '../actions/api';
 // Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-  return { id, date, name, shipTo, paymentMethod, amount };
+function createData(id, username, email, password, district, region, role) {
+  return { id, username, email, password, district, region, role };
 }
+let uniqueId = 0;
 
 const rows = [];
-
-let id = 0;
 
 function preventDefault(event) {
   event.preventDefault();
@@ -41,7 +40,7 @@ export default function Users() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('https://localhost:7273/api/Dashboard/users'); 
+        const response = await fetch('https://localhost:7273/api/Dashboard/users');
         const data = await response.json();
         setUsers(data);
       } catch (error) {
@@ -53,11 +52,28 @@ export default function Users() {
   }, []);
   console.log('Users:', users);
 
-  users.map((user) => {
-    rows.push(createData(id++, user.username, user.email, "********", user.gender, uRole[user.level]));
+  if (users.length === 0) {
+    return <p>Loading...</p>;
   }
-  );
-  
+  else {
+    users.map((user) => {
+      rows.push(createData(user.id, user.username, user.email, "********", user.gender, user.district, user.region, uRole[user.level]));
+    }
+    );
+  } 
+
+  const handleDelete = (id) => {
+    fetch('https://localhost:7273/api/Dashboard/user?userId=' + id, {
+      method: 'DELETE',
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('User deleted:', data);
+      })
+      .catch((error) => {
+        console.error('Error deleting user:', error);
+      });
+  }
   return (
     <React.Fragment>
       <Grid container justifyContent="space-between" alignItems="center">
@@ -79,23 +95,27 @@ export default function Users() {
             <TableCell>Email</TableCell>
             <TableCell>Password</TableCell>
             <TableCell>Gender</TableCell>
+            <TableCell>District</TableCell>
+            <TableCell>Region</TableCell>
             <TableCell>Role</TableCell>
-            <TableCell>Action</TableCell>
+            <TableCell>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.shipTo}</TableCell>
-              <TableCell>{row.paymentMethod}</TableCell>
-              <TableCell>{row.amount}</TableCell>
+            <TableRow key={uniqueId++}>
+              <TableCell>{row.username}</TableCell>
+              <TableCell>{row.email}</TableCell>
+              <TableCell>{row.password}</TableCell>
+              <TableCell>{row.gender}</TableCell>
+              <TableCell>{row.district}</TableCell>
+              <TableCell>{row.region}</TableCell>
+              <TableCell>{row.role}</TableCell>
               <TableCell>
                 <Button variant="primary" className="m-1">
                   Edit
                 </Button>
-                <Button variant="danger" className="m-1">
+                <Button variant="danger" className="m-1" onClick={() => handleDelete(row.id)}>
                   Delete
                 </Button>
               </TableCell>

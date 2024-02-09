@@ -187,6 +187,8 @@ namespace Project.BusinessLogic.Core
                     Id = uData.Id,
                     Username = uData.Username,
                     Email = uData.Email,
+                    District = uData.District,
+                    Region = uData.Region,
                     Level = uData.Level
                };
           }

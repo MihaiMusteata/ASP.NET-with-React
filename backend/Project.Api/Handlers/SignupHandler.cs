@@ -26,7 +26,7 @@ namespace Project.Api.Handlers
                     Distrcit = model.District,
                     Region = model.Region,
                     LoginIp = httpContext.Connection.RemoteIpAddress.ToString(),
-                    LoginDateTime = model.LoginDateTime,
+                    LoginDateTime = DateTime.Now,
                     Level = model.Level
 
                };

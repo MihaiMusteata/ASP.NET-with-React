@@ -16,6 +16,21 @@ namespace Project.Api.Controllers
                _mediator = mediator;
           }
 
+          [HttpPost("user")]
+          public async Task<ActionResult> AddUser(UserSignup user)
+          {
+               var query = new SignupQuery(user, HttpContext);
+               var result = await _mediator.Send(query);
+
+               if (result.Status)
+               {
+                    return Ok(result);
+               }
+               else
+               {
+                    return BadRequest(result);
+               }
+          }
 
           [HttpGet("users")]
           public async Task<ActionResult> GetUsers()
@@ -31,5 +46,23 @@ namespace Project.Api.Controllers
                     return BadRequest(result);
                }
           }
+
+          [HttpDelete("user")]
+          public async Task<ActionResult> DeleteUser(int userId)
+          {
+               var query = new DeleteUserQuery(userId);
+               var result = await _mediator.Send(query);
+               Debug.WriteLine(result.StatusMsg);
+               if (result.Status)
+               {
+                    return Ok(result);
+               }
+               else
+               {
+                    return BadRequest(result);
+               }
+          }
+
+         
      }
 }

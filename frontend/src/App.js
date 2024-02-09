@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Welcome from './components/Welcome';
 import Dashboard from './components/Dashboard';
-import AdminPanel from './components/AdminPanel';
 import Login from './components/Login';
 import Signup from './components/Signup';
 
@@ -45,11 +44,9 @@ function App() {
     <div>
       <Router>
         <Routes>
-          {/* <Route path="/" Component={AdminPanel} /> */}
           <Route path="*" Component={Welcome} />
           <Route path="/login" Component={Login} />
           <Route path="/signup" Component={Signup} />
-          {/* <Route path="/dashboard" element={user ? <Dashboard user={user} /> : <Navigate to="/authentication" />} /> */}
           <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser} />} />
         </Routes>
       </Router>
