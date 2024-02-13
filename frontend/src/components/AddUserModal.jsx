@@ -61,7 +61,6 @@ const AddUserModal = ({ open, handleClose }) => {
         });
 
         console.log(response);
-        // TODO: fix update table data after adding new user
         handleClose();
     };
 

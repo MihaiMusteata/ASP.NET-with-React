@@ -23,7 +23,6 @@ export default function Signup() {
 
   const handleChange = (event, setter) => {
     setter(event.target.value);
-    console.log(event.target);
   };
 
 
@@ -50,9 +49,6 @@ export default function Signup() {
     fetchRegions();
   }, []);
 
-  console.log('Districts:', districts);
-  console.log('Regions:', regions);
-
   const handleSignup = async () => {
     var data = {
       email: document.getElementById('email').value,
@@ -64,8 +60,6 @@ export default function Signup() {
       region: regions[region - 1].name,
       level:0
     };
-    console.log("Abricoasa :", JSON.stringify(data));
-    // https://localhost:7273/api/Auth/signup
     const response = await fetch('https://localhost:7273/api/Auth/signup', {
       method: 'POST',
       headers: {
@@ -77,7 +71,7 @@ export default function Signup() {
 
     console.log(response);
 
-    // window.location.href = '/login';
+    window.location.href = '/login';
   }
 
   return (

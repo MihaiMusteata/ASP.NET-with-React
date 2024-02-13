@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Project.Api.Filters
 {
+     //TODO: Fix Admin filter
      public class AdminFilterAttribute : Attribute, IActionFilter
      {
           private readonly BusinessLogic.Interfaces.ISession _session;
@@ -36,6 +37,9 @@ namespace Project.Api.Filters
                          context.HttpContext.Response.StatusCode = 401;
                          Debug.WriteLine("Not Admin");
                     }
+               }
+               else
+               {
                     Debug.WriteLine("Cookie not found");
                }
           }

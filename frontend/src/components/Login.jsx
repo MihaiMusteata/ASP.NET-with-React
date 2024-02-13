@@ -16,7 +16,7 @@ export default function Login() {
   const handleLogin = async () => {
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
-    
+
     var data = {
       credential: email,
       password: password
@@ -65,7 +65,7 @@ export default function Login() {
             autoComplete="current-password"
           />
           <Button
-            type="submit"
+            onClick={handleLogin}
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}

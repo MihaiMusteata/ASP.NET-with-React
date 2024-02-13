@@ -22,7 +22,39 @@ namespace Project.BusinessLogic.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Project.Domain.Entities.District.DistrictsDbTable", b =>
+            modelBuilder.Entity("Project.Domain.Entities.IBAN.IBanDbTable", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("District")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EcoCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IBAN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Region")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IBans");
+                });
+
+            modelBuilder.Entity("Project.Domain.Entities.Location.DistrictsDbTable", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -39,7 +71,7 @@ namespace Project.BusinessLogic.Migrations
                     b.ToTable("Districts");
                 });
 
-            modelBuilder.Entity("Project.Domain.Entities.District.RegionsDbTable", b =>
+            modelBuilder.Entity("Project.Domain.Entities.Location.RegionsDbTable", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

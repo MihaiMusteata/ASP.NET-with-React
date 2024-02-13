@@ -21,5 +21,13 @@ namespace Project.BusinessLogic
           {
                return new LocationManagerBL();
           }
+          public IIBANManager GetIBANManagerBL()
+          {
+               return new IBANManagerBL();
+          }
+          public IRegionIBANManager GetRegionIBANManagerBL()
+          {
+               return new RegionIBANManagerBL();
+          }
      }
 }

@@ -12,29 +12,14 @@ import { uRole } from '../actions/uRole';
 import AddUserModal from './AddUserModal';
 import { useState, useEffect } from 'react';
 import { ApiGetRequest } from '../actions/api';
-// Generate Order Data
+
+// Generate Users Data
 function createData(id, username, email, password, district, region, role) {
   return { id, username, email, password, district, region, role };
-}
-let uniqueId = 0;
-
-const rows = [];
-
-function preventDefault(event) {
-  event.preventDefault();
 }
 
 export default function Users() {
   const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -49,18 +34,17 @@ export default function Users() {
     };
 
     fetchUsers();
-  }, []);
+  }, [open]); 
+
   console.log('Users:', users);
 
-  if (users.length === 0) {
-    return <p>Loading...</p>;
-  }
-  else {
-    users.map((user) => {
-      rows.push(createData(user.id, user.username, user.email, "********", user.gender, user.district, user.region, uRole[user.level]));
-    }
-    );
-  } 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleDelete = (id) => {
     fetch('https://localhost:7273/api/Dashboard/user?userId=' + id, {
@@ -69,11 +53,13 @@ export default function Users() {
       .then((response) => response.json())
       .then((data) => {
         console.log('User deleted:', data);
+        setUsers(users.filter(user => user.id !== id));
       })
       .catch((error) => {
         console.error('Error deleting user:', error);
       });
-  }
+  };
+
   return (
     <React.Fragment>
       <Grid container justifyContent="space-between" alignItems="center">
@@ -102,20 +88,20 @@ export default function Users() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={uniqueId++}>
-              <TableCell>{row.username}</TableCell>
-              <TableCell>{row.email}</TableCell>
-              <TableCell>{row.password}</TableCell>
-              <TableCell>{row.gender}</TableCell>
-              <TableCell>{row.district}</TableCell>
-              <TableCell>{row.region}</TableCell>
-              <TableCell>{row.role}</TableCell>
+          {users.map((user) => (
+            <TableRow key={user.id}>
+              <TableCell>{user.username}</TableCell>
+              <TableCell>{user.email}</TableCell>
+              <TableCell>********</TableCell> {/* Display 'password' as asterisks */}
+              <TableCell>{user.gender}</TableCell>
+              <TableCell>{user.district}</TableCell>
+              <TableCell>{user.region}</TableCell>
+              <TableCell>{uRole[user.level]}</TableCell>
               <TableCell>
                 <Button variant="primary" className="m-1">
                   Edit
                 </Button>
-                <Button variant="danger" className="m-1" onClick={() => handleDelete(row.id)}>
+                <Button variant="danger" className="m-1" onClick={() => handleDelete(user.id)}>
                   Delete
                 </Button>
               </TableCell>
@@ -123,8 +109,8 @@ export default function Users() {
           ))}
         </TableBody>
       </Table>
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        See more orders
+      <Link color="primary" href="#" onClick={(event) => event.preventDefault()} sx={{ mt: 3 }}>
+        See more
       </Link>
     </React.Fragment>
   );

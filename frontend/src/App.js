@@ -10,44 +10,47 @@ import Signup from './components/Signup';
 
 function App() {
   const [user, setUser] = useState(null);
+  const [dataFetched, setDataFetched] = useState(false); // Variabilă de stare pentru a urmări dacă datele au fost deja obținute
   const url = 'https://localhost:7273/api/Auth/profile';
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(url, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          credentials: 'include',
-        });
-  
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-  
-        const data = await response.json();
-        setUser(data);
-      } catch (error) {
-        console.error('Error fetching user:', error.message);
-      }
-    };
-  
-    fetchData();
-  }, []);
-  
-  console.log('App User:', user);
-  
 
+  const fetchData = async () => {
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setUser(data);
+      setDataFetched(true); // Actualizați variabila de stare pentru a indica că datele au fost obținute
+    } catch (error) {
+      console.error('Error fetching user:', error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (!dataFetched) { // Verificați dacă datele nu au fost încă obținute
+      fetchData();
+    }
+  }, [dataFetched]); // Apelul se face doar dacă variabila de stare dataFetched se modifică
+
+  console.log('App User:', user);
 
   return (
     <div>
       <Router>
         <Routes>
           <Route path="*" Component={Welcome} />
-          <Route path="/login" Component={Login} />
-          <Route path="/signup" Component={Signup} />
-          <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser} />} />
+          <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <Login />} />
+          <Route path="/signup" element={user ? <Navigate to="/dashboard" /> : <Signup />} />
+          <Route path="/dashboard" element={user ? <Dashboard user={user} /> : <Navigate to="/login" />} />
         </Routes>
       </Router>
     </div>

@@ -19,11 +19,11 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import { Link } from 'react-router-dom';  
 import Users from './Users';
+import IBANs from './IBANs';  
+import RegionIBANs from './RegionIBANs';
 import Cookies from 'js-cookie';
 import { uRole } from '../actions/uRole';
 import { useEffect, useState } from 'react';
-
-
 
 
 const drawerWidth = 240;
@@ -91,15 +91,13 @@ export default function Dashboard({ user, setUser }) {
 
   const handleLogout = async () => {
     Cookies.remove('X-Key');
-    setUser(null);
     try {
       const userId = user.id;
       const response = await fetch('https://localhost:7273/api/Auth/logout?userId=' + userId, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userId: userId }),
+        }
       });
 
       if (response.ok) {
@@ -111,6 +109,8 @@ export default function Dashboard({ user, setUser }) {
     } catch (error) {
       console.error(`Error during logout: ${error.message}`);
     }
+
+    window.location.href = '/';
   };
 
 
@@ -201,8 +201,9 @@ export default function Dashboard({ user, setUser }) {
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-              {user && uRole[user.level] == 'Admin' && <Users />}
-              {/* if uRole[user.level] == 'Operator'  show Orders*/}
+                {user.level === 1 && <Users />}
+                {user.level === 2 && <IBANs />}
+                {user.level === 3 && <RegionIBANs user={user} />}
               </Paper>
             </Grid>
           </Grid>
