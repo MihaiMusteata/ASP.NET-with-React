@@ -11,5 +11,6 @@ namespace Project.BusinessLogic.Interfaces
      {
           List<UserMinimal> GetUsers();
           PostResponse DeleteUser(int id);
+          PostResponse UpdateUser(UserMinimal user);
      }
 }

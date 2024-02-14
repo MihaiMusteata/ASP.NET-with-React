@@ -26,5 +26,10 @@ namespace Project.BusinessLogic
           {
                return AddIBANAction(iban);
           }
+
+          public PostResponse UpdateIBAN(IBANData iban)
+          {
+               return UpdateIBANAction(iban);
+          }
      }
 }

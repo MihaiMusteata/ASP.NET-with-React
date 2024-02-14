@@ -10,16 +10,13 @@ import { Button } from 'react-bootstrap';
 import Grid from '@mui/material/Grid';
 import { uRole } from '../actions/uRole';
 import AddUserModal from './AddUserModal';
+import EditUserModal from './EditUserModal';
 import { useState, useEffect } from 'react';
-import { ApiGetRequest } from '../actions/api';
-
-// Generate Users Data
-function createData(id, username, email, password, district, region, role) {
-  return { id, username, email, password, district, region, role };
-}
 
 export default function Users() {
   const [open, setOpen] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const [userId, setUserId] = useState({});
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -34,9 +31,16 @@ export default function Users() {
     };
 
     fetchUsers();
-  }, [open]); 
+  }, [open]);
 
-  console.log('Users:', users);
+  const handleEdit = (id) => {
+    setUserId(id);
+    setEdit(true);
+  };
+
+  const handleCloseEdit = () => {
+    setEdit(false);
+  };
 
   const handleOpen = () => {
     setOpen(true);
@@ -66,11 +70,12 @@ export default function Users() {
         <Typography component="h2" variant="h6" color="primary" gutterBottom>
           Users List
         </Typography>
+        <AddUserModal open={open} handleClose={handleClose} />
+        {userId ? <EditUserModal open={edit} handleClose={handleCloseEdit} userId={userId} users={users} setUsers={setUsers} /> : null}
         <Grid item>
           <Button variant="success" color="success" className="m-1" onClick={handleOpen}>
             Add new User
           </Button>
-          <AddUserModal open={open} handleClose={handleClose} />
         </Grid>
       </Grid>
 
@@ -92,13 +97,13 @@ export default function Users() {
             <TableRow key={user.id}>
               <TableCell>{user.username}</TableCell>
               <TableCell>{user.email}</TableCell>
-              <TableCell>********</TableCell> {/* Display 'password' as asterisks */}
+              <TableCell>********</TableCell>
               <TableCell>{user.gender}</TableCell>
               <TableCell>{user.district}</TableCell>
               <TableCell>{user.region}</TableCell>
               <TableCell>{uRole[user.level]}</TableCell>
               <TableCell>
-                <Button variant="primary" className="m-1">
+                <Button variant="primary" className="m-1" onClick={() => handleEdit(user.id)}>
                   Edit
                 </Button>
                 <Button variant="danger" className="m-1" onClick={() => handleDelete(user.id)}>

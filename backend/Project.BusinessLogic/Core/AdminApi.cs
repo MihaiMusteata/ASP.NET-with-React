@@ -42,7 +42,6 @@ namespace Project.BusinessLogic.Core
                     if (user != null)
                     {
                          db.Users.Remove(user);
-                         //check for cookies
                          var cookie = db.Sessions.Where(s => s.UserId == id).FirstOrDefault();
                          if (cookie != null)
                          {
@@ -63,6 +62,37 @@ namespace Project.BusinessLogic.Core
                               StatusMsg = "User not found"
                          };
                     }
+               }
+          }
+          public PostResponse UpdateUserAction(UserMinimal user)
+          {
+               using (var db = new MinisterulFinantelorContext())
+               {
+                    var user_db = db.Users.Where(u => u.Id == user.Id).FirstOrDefault();
+                    if (user_db != null)
+                    {
+                         user_db.Username = user.Username;
+                         user_db.Email = user.Email;  
+                         user_db.Gender = user.Gender;
+                         user_db.District = user.District;
+                         user_db.Region = user.Region;
+                         user_db.Level = user.Level;
+                         db.SaveChanges();
+                         return new PostResponse
+                         {
+                              Status = true,
+                              StatusMsg = "User edited successfully"
+                         };
+                    }
+                    else
+                    {
+                         return new PostResponse
+                         {
+                              Status = false,
+                              StatusMsg = "User not found"
+                         };
+                    }
+
                }
           }
      }

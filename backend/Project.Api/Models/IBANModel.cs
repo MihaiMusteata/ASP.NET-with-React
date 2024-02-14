@@ -2,6 +2,7 @@
 {
      public class IBANModel
      {
+          public int Id { get; set; }
           public int Year { get; set; }
           public string IBAN { get; set; }
           public string EcoCode { get; set; }

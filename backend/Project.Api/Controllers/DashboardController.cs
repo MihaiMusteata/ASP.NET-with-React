@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Project.Api.Filters;
 using Project.Api.Queries;
+using Project.Domain.Entities.User;
 using System.Diagnostics;
 
 namespace Project.Api.Controllers
@@ -12,11 +13,9 @@ namespace Project.Api.Controllers
      public class DashboardController : ControllerBase
      {
           private readonly IMediator _mediator;
-          private readonly HttpContext _httpContext;
           public DashboardController(IMediator mediator)
           {
                _mediator = mediator;
-               _httpContext = HttpContext;
 
           }
 
@@ -37,10 +36,11 @@ namespace Project.Api.Controllers
                }
           }
 
-          [HttpPost("iban")]
-          public async Task<ActionResult> AddIBAN(IBANModel iban)
+          [HttpPut("user")]
+          [AdminFilter]
+          public async Task<ActionResult> UpdateUser(UserMinimal user)
           {
-               var query = new AddIBANQuery(iban);
+               var query = new UpdateUserQuery(user);
                var result = await _mediator.Send(query);
                if (result.Status)
                {
@@ -52,6 +52,22 @@ namespace Project.Api.Controllers
                }
           }
 
+          [HttpDelete("user")]
+          [AdminFilter]
+          public async Task<ActionResult> DeleteUser(int userId)
+          {
+               var query = new DeleteUserQuery(userId);
+               var result = await _mediator.Send(query);
+               Debug.WriteLine(result.StatusMsg);
+               if (result.Status)
+               {
+                    return Ok(result);
+               }
+               else
+               {
+                    return BadRequest(result);
+               }
+          }
 
           [HttpGet("users")]
           [AdminFilter]
@@ -60,6 +76,21 @@ namespace Project.Api.Controllers
                var query = new GetUsersQuery();
                var result = await _mediator.Send(query);
                if (result != null)
+               {
+                    return Ok(result);
+               }
+               else
+               {
+                    return BadRequest(result);
+               }
+          }
+
+          [HttpPost("iban")]
+          public async Task<ActionResult> AddIBAN(IBANModel iban)
+          {
+               var query = new AddIBANQuery(iban);
+               var result = await _mediator.Send(query);
+               if (result.Status)
                {
                     return Ok(result);
                }
@@ -99,13 +130,11 @@ namespace Project.Api.Controllers
                }
           }
 
-          [HttpDelete("user")]
-          [AdminFilter]
-          public async Task<ActionResult> DeleteUser(int userId)
+          [HttpDelete("iban")]
+          public async Task<ActionResult> DeleteIBAN(int ibanId)
           {
-               var query = new DeleteUserQuery(userId);
+               var query = new DeleteIBANQuery(ibanId);
                var result = await _mediator.Send(query);
-               Debug.WriteLine(result.StatusMsg);
                if (result.Status)
                {
                     return Ok(result);
@@ -116,10 +145,10 @@ namespace Project.Api.Controllers
                }
           }
 
-          [HttpDelete("iban")]
-          public async Task<ActionResult> DeleteIBAN(int ibanId)
+          [HttpPut("iban")]
+          public async Task<ActionResult> UpdateIBAN(IBANModel iban)
           {
-               var query = new DeleteIBANQuery(ibanId);
+               var query = new UpdateIBANQuery(iban);
                var result = await _mediator.Send(query);
                if (result.Status)
                {

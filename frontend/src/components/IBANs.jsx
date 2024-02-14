@@ -9,12 +9,14 @@ import Typography from '@mui/material/Typography';
 import { Button } from 'react-bootstrap';
 import Grid from '@mui/material/Grid';
 import AddIBANModal from './AddIBANModal';
+import EditIBANModal from './EditIBANModal';
 import { useState, useEffect } from 'react';
-import { ApiGetRequest } from '../actions/api';
 
 export default function IBANs() {
   const [open, setOpen] = useState(false);
   const [ibans, setIbans] = useState([]);
+  const [edit, setEdit] = useState(false);
+  const [ibanId, setIbanId] = useState({});
 
   useEffect(() => {
     const fetchIBANs = async () => {
@@ -29,9 +31,17 @@ export default function IBANs() {
     };
 
     fetchIBANs();
-  }, [open]); 
+  }, [open]);
 
-  console.log('IBANs:', ibans);
+
+  const handleEdit = (id) => {
+    setIbanId(id);
+    setEdit(true);
+  };
+
+  const handleCloseEdit = () => {
+    setEdit(false);
+  };
 
   const handleOpen = () => {
     setOpen(true);
@@ -61,11 +71,12 @@ export default function IBANs() {
         <Typography component="h2" variant="h6" color="primary" gutterBottom>
           IBANs List
         </Typography>
+        <AddIBANModal open={open} handleClose={handleClose} />
+        <EditIBANModal open={edit} handleClose={handleCloseEdit} ibanId={ibanId} ibans={ibans} setIbans={setIbans} />
         <Grid item>
           <Button variant="success" color="success" className="m-1" onClick={handleOpen}>
             Add new IBAN
           </Button>
-          <AddIBANModal open={open} handleClose={handleClose} />
         </Grid>
       </Grid>
 
@@ -89,7 +100,7 @@ export default function IBANs() {
               <TableCell>{iban.district}</TableCell>
               <TableCell>{iban.region}</TableCell>
               <TableCell>
-                <Button variant="primary" className="m-1">
+                <Button variant="primary" className="m-1" onClick={() => handleEdit(iban.id)}>
                   Edit
                 </Button>
                 <Button variant="danger" className="m-1" onClick={() => handleDelete(iban.id)}>

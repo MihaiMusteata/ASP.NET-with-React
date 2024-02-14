@@ -67,7 +67,7 @@ namespace Project.BusinessLogic.Core
                          Email = data.Email,
                          Password = hash_password,
                          Gender = data.Gender,
-                         District = data.Distrcit,
+                         District = data.District,
                          Region = data.Region,
                          LastIp = data.LoginIp,
                          LastLogin = data.LoginDateTime,

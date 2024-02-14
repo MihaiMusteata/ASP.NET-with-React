@@ -19,5 +19,9 @@ namespace Project.BusinessLogic
           {
                return DeleteUserAction(id);
           }
+          public PostResponse UpdateUser(UserMinimal user)
+          {
+               return UpdateUserAction(user);
+          }
      }
 }

@@ -13,5 +13,6 @@ namespace Project.BusinessLogic.Interfaces
           List<IBANData> GetIBANs();
           PostResponse AddIBAN(IBANData iban);
           PostResponse DeleteIBAN(int id);
+          PostResponse UpdateIBAN(IBANData iban);
      }
 }

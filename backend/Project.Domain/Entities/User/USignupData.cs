@@ -14,7 +14,7 @@ namespace Project.Domain.Entities.User
           public string Password { get; set; }
           public string ConfirmPassword { get; set; }
           public string Gender { get; set; }
-          public string Distrcit { get; set; }
+          public string District { get; set; }
           public string Region { get; set; }
           public string LoginIp { get; set; }
           public DateTime LoginDateTime { get; set; }

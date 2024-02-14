@@ -92,8 +92,36 @@ namespace Project.BusinessLogic.Core
                          };
                     }
                }
+          }
 
-
+          public PostResponse UpdateIBANAction(IBANData iban)
+          {
+               using (var db = new MinisterulFinantelorContext())
+               {
+                    var iban_exists = db.IBans.Where(i => i.Id == iban.Id).FirstOrDefault();
+                    if (iban_exists != null)
+                    {
+                         iban_exists.Year = iban.Year;
+                         iban_exists.IBAN = iban.IBAN;
+                         iban_exists.EcoCode = iban.EcoCode;
+                         iban_exists.District = iban.District;
+                         iban_exists.Region = iban.Region;
+                         db.SaveChanges();
+                         return new PostResponse
+                         {
+                              Status = true,
+                              StatusMsg = "IBAN updated successfully"
+                         };
+                    }
+                    else
+                    {
+                         return new PostResponse
+                         {
+                              Status = false,
+                              StatusMsg = "IBAN not found"
+                         };
+                    }
+               }
           }
 
      }
