@@ -31,5 +31,10 @@ namespace Project.BusinessLogic
           {
                return UpdateIBANAction(iban);
           }
+
+          public RegistryData DownloadRegistryData(int year)
+          {
+               return DownloadRegistry(year);
+          }
      }
 }

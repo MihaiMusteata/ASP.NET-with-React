@@ -75,7 +75,9 @@ const EditIBANModal = ({ open, handleClose, ibanId, ibans, setIbans }) => {
                 setIbans(ibans.map(iban => iban.id === ibanId ? data : iban));
                 handleClose();
             } else {
-                console.error('Failed to update IBAN');
+                const errorBody = await response.json();
+                console.log('Error body:', errorBody.statusMsg);
+                alert('Error: ' + errorBody.statusMsg);
             }
         } catch (error) {
             console.error('Error submitting data:', error);

@@ -6,8 +6,6 @@ import { useEffect } from 'react';
 const AddUserModal = ({ open, handleClose }) => {
     const [districts, setDistricts] = useState([]);
     const [regions, setRegions] = useState([]);
-    const [gender, setGender] = React.useState('');
-    const [role, setRole] = React.useState('');
     const [district, setDistrict] = React.useState('');
     const [region, setRegion] = React.useState('');
 
@@ -57,7 +55,15 @@ const AddUserModal = ({ open, handleClose }) => {
             credentials: 'include',
             body: JSON.stringify(data),
         });
-        console.log(JSON.stringify(data));
+        if (response.ok) {
+
+            const responseData = await response.json();
+            console.log(responseData);
+        } else {
+            const errorBody = await response.json();
+            console.log('Error body:', errorBody.statusMsg);
+            alert('Error: ' + errorBody.statusMsg);
+        }
         console.log(response);
         handleClose();
     };
@@ -76,7 +82,7 @@ const AddUserModal = ({ open, handleClose }) => {
                             id="year"
                             label="Year"
                             autoFocus
-                            type="number" 
+                            type="number"
                             InputProps={{ inputProps: { min: 0 } }}
                         />
                     </Grid>

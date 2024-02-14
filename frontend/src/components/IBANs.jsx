@@ -10,6 +10,7 @@ import { Button } from 'react-bootstrap';
 import Grid from '@mui/material/Grid';
 import AddIBANModal from './AddIBANModal';
 import EditIBANModal from './EditIBANModal';
+import { TextField } from '@mui/material';
 import { useState, useEffect } from 'react';
 
 export default function IBANs() {
@@ -17,6 +18,7 @@ export default function IBANs() {
   const [ibans, setIbans] = useState([]);
   const [edit, setEdit] = useState(false);
   const [ibanId, setIbanId] = useState({});
+  const [year, setYear] = useState({});
 
   useEffect(() => {
     const fetchIBANs = async () => {
@@ -34,6 +36,10 @@ export default function IBANs() {
   }, [open]);
 
 
+  const handleChange = (event) => {
+    setYear(event.target.value);
+  }
+
   const handleEdit = (id) => {
     setIbanId(id);
     setEdit(true);
@@ -50,6 +56,45 @@ export default function IBANs() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  async function handleDownload(year) {
+    try {
+      const response = await fetch(`https://localhost:7273/api/Dashboard/registry?year=${year}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const blob = await response.blob();
+
+      const contentDisposition = response.headers.get('Content-Disposition');
+      let fileName = 'registry_' + year + '.csv';
+      if (contentDisposition) {
+        const fileNameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+        const matches = fileNameRegex.exec(contentDisposition);
+        if (matches != null && matches[1]) {
+          fileName = matches[1].replace(/['"]/g, '');
+        }
+      }
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
+  }
 
   const handleDelete = (id) => {
     fetch('https://localhost:7273/api/Dashboard/iban?ibanId=' + id, {
@@ -73,11 +118,32 @@ export default function IBANs() {
         </Typography>
         <AddIBANModal open={open} handleClose={handleClose} />
         <EditIBANModal open={edit} handleClose={handleCloseEdit} ibanId={ibanId} ibans={ibans} setIbans={setIbans} />
-        <Grid item>
-          <Button variant="success" color="success" className="m-1" onClick={handleOpen}>
-            Add new IBAN
-          </Button>
+        <Grid container alignItems="center" justify="flex-end" spacing={2}>
+          <Grid item>
+            <TextField
+              autoComplete="year"
+              name="year"
+              required
+              id="year"
+              label="Year"
+              type="number"
+              InputProps={{ inputProps: { min: 0 } }}
+              onChange={(event) => handleChange(event)}
+            />
+          </Grid>
+          <Grid item>
+            <Button variant="info" color="success" className="m-1" onClick={() => handleDownload(year)}>
+              Download Registry
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button variant="success" color="success" className="m-1" onClick={handleOpen}>
+              Add new IBAN
+            </Button>
+          </Grid>
         </Grid>
+
+
       </Grid>
 
       <Table size="small">

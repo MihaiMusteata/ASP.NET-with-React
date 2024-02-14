@@ -14,5 +14,6 @@ namespace Project.BusinessLogic.Interfaces
           PostResponse AddIBAN(IBANData iban);
           PostResponse DeleteIBAN(int id);
           PostResponse UpdateIBAN(IBANData iban);
+          RegistryData DownloadRegistryData(int year);
      }
 }

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "m24qa5kHbnDBy3Nd83uO5dskmnGgZQaNdv7SlSA3xy8sxfzsimi/9TsYCmL/pEdqWoj4tIaBRguo6p7VWaD17A==",
+  "dgSpecHash": "0GuhaliEhuePCFt+t9KPsD7+OLPCqblvn8/+izu8QEBOtg/Hpb9h7zMnJh2rEDEQdr4R5IqGyx9fqWwAb7aEXg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Mr_Restmah\\OneDrive - Technical University of Moldova\\Documents\\GitHub\\ASP.NET-with-React\\backend\\Project.Domain\\Project.Domain.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Mr_Restmah\\.nuget\\packages\\fluentvalidation\\11.9.0\\fluentvalidation.11.9.0.nupkg.sha512",
     "C:\\Users\\Mr_Restmah\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\Mr_Restmah\\.nuget\\packages\\microsoft.extensions.primitives\\2.2.0\\microsoft.extensions.primitives.2.2.0.nupkg.sha512",
     "C:\\Users\\Mr_Restmah\\.nuget\\packages\\system.memory\\4.5.1\\system.memory.4.5.1.nupkg.sha512",

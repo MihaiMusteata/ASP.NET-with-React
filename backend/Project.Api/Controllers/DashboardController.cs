@@ -160,5 +160,20 @@ namespace Project.Api.Controllers
                }
           }
 
+          [HttpGet("registry")]
+          public async Task<ActionResult> GetRegistry(int year)
+          {
+               var query = new DownloadRegistryQuery(year);
+               var result = await _mediator.Send(query);
+               if (result != null)
+               {
+                    return File(result.Content, result.ContentType, result.FileName);
+               }
+               else
+               {
+                    return BadRequest(result);
+               }
+          }
+
      }
 }

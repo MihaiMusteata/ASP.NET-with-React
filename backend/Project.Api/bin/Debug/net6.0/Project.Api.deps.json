@@ -871,6 +871,7 @@
       },
       "Project.Domain/1.0.0": {
         "dependencies": {
+          "FluentValidation": "11.9.0",
           "Microsoft.AspNetCore.Http.Features": "2.2.0",
           "Project.Helpers": "1.0.0"
         },

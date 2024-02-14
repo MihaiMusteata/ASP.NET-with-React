@@ -30,7 +30,7 @@ const EditUserModal = ({ open, handleClose, userId, users, setUsers }) => {
                 ]);
                 setDistricts(districtsData);
                 setRegions(regionsData);
-                setDataLoaded(true); // Set dataLoaded to true when both districts and regions are loaded
+                setDataLoaded(true);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
